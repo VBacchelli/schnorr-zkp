@@ -28,3 +28,8 @@ build/
 .gradle/
 bin/
 *.class
+
+# Eclipse metadata
+.classpath
+.project
+.settings/
