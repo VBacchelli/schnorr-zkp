@@ -110,7 +110,7 @@ public final class Parameters {
     public static Parameters demo() {
         BigInteger q = BigInteger.valueOf(11);
         BigInteger p = q.multiply(BigInteger.TWO).add(BigInteger.ONE); // p = 23
-        BigInteger g = BigInteger.valueOf(5);
+        BigInteger g = BigInteger.valueOf(2);
         return new Parameters(p, q, g);
     }
 
