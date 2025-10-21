@@ -43,8 +43,8 @@ public class Verifier {
                 .multiply(publicKey.modPow(proof.getC(), p))
                 .mod(p); // r * y^c mod p
         
-        System.out.println("[DEBUG] g^s mod p = " + left);
-        System.out.println("[DEBUG] r * y^c mod p = " + right);
+        //System.out.println("[DEBUG] g^s mod p = " + left);
+        //System.out.println("[DEBUG] r * y^c mod p = " + right);
 
 
         return left.equals(right);

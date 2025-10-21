@@ -45,7 +45,7 @@ public class Main {
 
         // Step 7: Verifier checks proof
         boolean valid = verifier.verify(proof, kp.getPublic());
-        System.out.println("[Verifier] Verification result: " + (valid ? "✅ ACCEPTED" : "❌ REJECTED"));
+        System.out.println("[Verifier] Verification result: " + (valid ? "ACCEPTED" : "REJECTED"));
 
         System.out.println("\n=== End of Demo ===");
     }
