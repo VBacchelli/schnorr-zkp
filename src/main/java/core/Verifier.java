@@ -16,11 +16,9 @@ import util.CryptoUtils;
 public class Verifier {
 
     private final Parameters params;
-    private final BigInteger publicKey; // y = g^x mod p
 
-    public Verifier(Parameters params, BigInteger publicKey) {
+    public Verifier(Parameters params) {
         this.params = params;
-        this.publicKey = publicKey;
     }
 
     /**
@@ -36,7 +34,7 @@ public class Verifier {
      * @param proof the proof object containing r, c, s
      * @return true if the proof is valid, false otherwise
      */
-    public boolean verify(Proof proof) {
+    public boolean verify(Proof proof, BigInteger publicKey) {
         BigInteger p = params.getP();
         BigInteger g = params.getG();
 

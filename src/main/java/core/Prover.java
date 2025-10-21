@@ -11,7 +11,7 @@ public class Prover {
     private final Parameters params;
     private final KeyPair keyPair;
 
-    private BigInteger k; // ephemeral secret
+    private BigInteger k; // ephemeral secret (nonce)
     private BigInteger r; // commitment
 
     public Prover(Parameters params, KeyPair keyPair) {
@@ -33,31 +33,26 @@ public class Prover {
      * The private nonce k is securely cleared after use.
      */
     public Proof respondToChallenge(BigInteger c) {
-        BigInteger x = keyPair.copyPrivateKey(); // defensive copy
         BigInteger q = params.getQ();
 
-        BigInteger s = k.add(c.multiply(x)).mod(q);
-
-        // Best-effort secure erase of k
-        destroyEphemeral();
+        BigInteger s = k.add(keyPair.multiplySecret(c)).mod(q); 
 
         // Create proof (r, c, s)
         Proof proof = new Proof(r, c, s);
-
-        // Clear commitment too
-        r = null;
 
         return proof;
     }
 
     /**
      * Best-effort secure erase of ephemeral secret k.
+     * Call this when the secret is no longer needed.
      */
-    private void destroyEphemeral() {
+    public void destroyEphemeral() {
         if (k != null) {
             byte[] bytes = k.toByteArray();
             java.util.Arrays.fill(bytes, (byte) 0);
             k = null;
         }
     }
+    
 }
