@@ -42,6 +42,10 @@ public class Verifier {
         BigInteger right = proof.getR()
                 .multiply(publicKey.modPow(proof.getC(), p))
                 .mod(p); // r * y^c mod p
+        
+        System.out.println("[DEBUG] g^s mod p = " + left);
+        System.out.println("[DEBUG] r * y^c mod p = " + right);
+
 
         return left.equals(right);
     }

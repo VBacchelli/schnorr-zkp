@@ -87,17 +87,19 @@ public final class Parameters {
      * @throws IllegalStateException if no valid generator is found
      */
     private static BigInteger findGenerator(BigInteger p, BigInteger q) {
-        BigInteger g = BigInteger.TWO;
-        BigInteger exponent = p.subtract(BigInteger.ONE).divide(q);
+    	BigInteger exp = p.subtract(BigInteger.ONE).divide(q); // (p-1)/q
+        while (true) {
+            // choose h ∈ {2, …, p-2}
+            BigInteger h;
+            do {
+                h = new BigInteger(p.bitLength() - 1, RANDOM);
+            } while (h.compareTo(BigInteger.TWO) < 0 || h.compareTo(p.subtract(BigInteger.TWO)) > 0);
 
-        while (g.compareTo(p.subtract(BigInteger.ONE)) < 0) {
-            if (!g.modPow(exponent, p).equals(BigInteger.ONE)) {
-                return g;
+            BigInteger g = h.modPow(exp, p);   // g = h^{(p-1)/q} mod p
+            if (!g.equals(BigInteger.ONE)) {
+                return g; // ord(g) = q
             }
-            g = g.add(BigInteger.ONE);
         }
-
-        throw new IllegalStateException("No valid generator found for given p and q");
     }
 
     /**

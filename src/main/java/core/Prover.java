@@ -37,6 +37,9 @@ public class Prover {
 
         BigInteger s = k.add(keyPair.multiplySecret(c)).mod(q); 
 
+        System.out.println("[DEBUG] Using k = " + k);
+        System.out.println("[DEBUG] Using r = " + r);
+
         // Create proof (r, c, s)
         Proof proof = new Proof(r, c, s);
 
