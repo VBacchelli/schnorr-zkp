@@ -17,8 +17,17 @@ public final class Parameters {
     /** Bit-length of probabilistic prime testing (accuracy ≈ 1 - 2^-50). */
     private static final int PRIME_CERTAINTY = 50;
 
-    /** Shared secure random source (thread-safe in modern JVMs). */
-    private static final SecureRandom RANDOM = new SecureRandom();
+    /** Secure random source (thread-safe in modern JVMs). */
+    private static final SecureRandom RANDOM;
+    static { // static block, only runs once and initializes RANDOM
+        SecureRandom rnd;
+        try {
+            rnd = SecureRandom.getInstanceStrong(); // takes the best available instance
+        } catch (Exception e) {
+            rnd = new SecureRandom(); //fallback, default instance (system dependent)
+        }
+        RANDOM = rnd;
+    }
 
     private final BigInteger p; // Large prime modulus
     private final BigInteger q; // Subgroup order
