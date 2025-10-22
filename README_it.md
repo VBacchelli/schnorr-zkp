@@ -13,7 +13,7 @@ Il progetto è stato sviluppato come parte del corso **Sicurezza dell’Informaz
 Le *Zero-Knowledge Proofs* (ZKP) permettono a una parte (Prover) di convincere un’altra (Verifier) di conoscere un segreto, **senza rivelarne alcuna informazione**.  
 
 Il protocollo di Schnorr, proposto da *Claus-Peter Schnorr (1990)*, è uno degli esempi fondamentali di ZKP.  
-Si basa sulla difficoltà del **Problema del Logaritmo Discreto (DLP)** nei gruppi modulari, secondo cui, dati p, g e $y = g^x \bmod p$, è computazionalmente impraticabile ricavare $x$.
+Si basa sulla difficoltà del **Problema del Logaritmo Discreto (DLP)** nei gruppi modulari, secondo cui, dati p, g e $y = g^x \bmod p$,  ricavare $x$ è computazionalmente infattibile.
 
 Il protocollo garantisce tre proprietà:
 - **Completezza**: un prover onesto convince sempre un verifier onesto.  
