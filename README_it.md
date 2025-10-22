@@ -4,7 +4,7 @@
 
 ## Introduzione
 Questo progetto è un’implementazione del protocollo di identificazione di Schnorr, un classico esempio di *Zero-Knowledge Proof of Knowledge* (ZKPoK).  
-Dimostra come un *Prover* possa convincere un *Verifier* di conoscere un segreto $x$ tale che $y = g^x \bmod p $, senza rivelare il valore di $x$.
+Dimostra come un *Prover* possa convincere un *Verifier* di conoscere un segreto $x$ tale che $y = g^x \bmod p$, senza rivelare il valore di $x$.
 
 Il progetto è stato sviluppato come parte del corso **Sicurezza dell’Informazione M** dell’**Università di Bologna**, con l’obiettivo di mostrare un’implementazione pratica di un protocollo a conoscenza zero in Java.
 
@@ -44,7 +44,7 @@ Il protocollo garantisce tre proprietà:
 - Il `Prover` risponde con $s = (k + c·x) \bmod q $.  
 - Il `Verifier` verifica che $g^s ≡ r·y^c \bmod p $.
 
-Se l’uguaglianza è soddisfatta, il verifier è convinto che il prover conosca $ x $.
+Se l’uguaglianza è soddisfatta, il verifier è convinto che il prover conosca $x$.
 
 ## Panoramica dell’Implementazione
 
@@ -57,32 +57,31 @@ Definisce i parametri pubblici ($p$, $q$, $g$) del protocollo.
 Questi parametri definiscono il gruppo algebrico su cui operano tutte le operazioni.
 
 ### `KeyPair.java`
-Rappresenta la coppia di chiavi del prover ($x$, $y = g^x \bmod p $).  
-La chiave segreta $ x $ è salvata come `byte[]` e convertita in `BigInteger` solo quando necessario.
+Rappresenta la coppia di chiavi del prover ($x$, $y = g^x \bmod p$).  
+La chiave segreta $x$ è salvata come `byte[]` e convertita in `BigInteger` solo quando necessario.
 
-- `multiplySecret(BigInteger value)`: calcola $(x \cdot value) \bmod q $ senza esporre $ x$.  
+- `multiplySecret(BigInteger value)`: calcola $(x \cdot value) \bmod q$ senza esporre $x$.  
 - `matchesSecret(BigInteger candidate)`: verifica se un valore corrisponde alla chiave privata (usato nei test di soundness).  
 
 Non esiste un getter pubblico per la chiave privata, che rimane confinata nella classe.
 
 ### `Prover.java`
 Gestisce il lato del prover:
-- `generateCommitment()`: genera un nonce casuale $k$ e calcola$ r = g^k \bmod p $.  
-- `respondToChallenge(BigInteger c)`: calcola $ s = (k + c·x) \bmod q $ e costruisce un `Proof(r, c, s)`.  
+- `generateCommitment()`: genera un nonce casuale $k$ e calcola $r = g^k \bmod p$.  
+- `respondToChallenge(BigInteger c)`: calcola $s = (k + c·x) \bmod q$ e costruisce un `Proof(r, c, s)`.  
 
 Il nonce $k$ è rigenerato a ogni esecuzione e mai riutilizzato.
 
 ### `Verifier.java`
 Implementa la verifica:
 - `generateChallenge()`: genera una sfida casuale $c ∈ Z_q$.  
-- `verify(Proof proof, BigInteger publicKey)`: verifica $g^s ≡ r·y^c \bmod p $.  
+- `verify(Proof proof, BigInteger publicKey)`: verifica $g^s ≡ r·y^c \bmod p$.  
 
 Restituisce `true` se la prova è valida, `false` altrimenti.
 
 ### `Simulator.java`
 Illustra la proprietà di *zero-knowledge*:
-- `simulateProof()`: genera un transcript falso ma valido ($r, c, s$) senza usare alcuna chiave privata.  
-  Dimostra che il verifier non può distinguere le prove simulate da quelle reali.
+- `simulateProof()`: genera un transcript falso ma valido ($r, c, s$) senza usare alcuna chiave privata. Dimostra che il verifier non può distinguere le prove simulate da quelle reali.
 
 ### `Proof.java`
 Semplice classe immutabile che contiene:
@@ -90,7 +89,7 @@ Semplice classe immutabile che contiene:
 - `c`: challenge  
 - `s`: response  
 
-Serve come contenitore di scambio tra prover e verifier.  
+Serve come contenitore di scambio tra Prover e Verifier.  
 Il suo `toString()` stampa i valori in esadecimale per leggibilità.
 
 ### `Main.java`
